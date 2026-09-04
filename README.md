@@ -74,7 +74,7 @@ The API listens on **http://127.0.0.1:43147**.
 - Email: `admin@booking.local`
 - Password: `Admin12345!`
 
-Sample services (`Haircut`, `Home Cleaning`, `Consultation`) are created by the seed as well.
+Sample services for مديرية الإمداد والتوريد (`طلب صرف مواد من المستودع`, `نقل وإمداد`, `دراسة احتياج وتوريد`) are created by the seed as well.
 
 ### Example
 

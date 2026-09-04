@@ -21,31 +21,43 @@ async function main() {
 
   const services = [
     {
-      name: 'Haircut',
-      description: 'Standard haircut with wash and style.',
+      oldName: 'Haircut',
+      name: 'طلب صرف مواد من المستودع',
+      description:
+        'صرف واستلام مواد من المستودع المركزي حسب طلب الجهة المستفيدة.',
       price: 25.0,
       durationMinutes: 45,
     },
     {
-      name: 'Home Cleaning',
-      description: 'Two-hour apartment cleaning visit.',
+      oldName: 'Home Cleaning',
+      name: 'نقل وإمداد',
+      description:
+        'حجز آلية لنقل المواد بين المستودعات والجهات الطالبة ضمن المديرية.',
       price: 80.0,
       durationMinutes: 120,
     },
     {
-      name: 'Consultation',
-      description: 'One-on-one consultation session.',
+      oldName: 'Consultation',
+      name: 'دراسة احتياج وتوريد',
+      description:
+        'دراسة احتياج الدائرة وإعداد طلب توريد للمواد والمستلزمات المطلوبة.',
       price: 50.0,
       durationMinutes: 60,
     },
   ];
 
   for (const service of services) {
+    const { oldName, ...data } = service;
     const existing = await prisma.service.findFirst({
-      where: { name: service.name },
+      where: { OR: [{ name: oldName }, { name: data.name }] },
     });
-    if (!existing) {
-      await prisma.service.create({ data: service });
+    if (existing) {
+      await prisma.service.update({
+        where: { id: existing.id },
+        data,
+      });
+    } else {
+      await prisma.service.create({ data });
     }
   }
 

@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 
 export class UpdateServiceDto {
-  @ApiPropertyOptional({ example: 'Premium Haircut' })
+  @ApiPropertyOptional({ example: 'طلب صرف مواد عاجلة من المستودع' })
   @IsOptional()
   @IsString()
   @MinLength(2)

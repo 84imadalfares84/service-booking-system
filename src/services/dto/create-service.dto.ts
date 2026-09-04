@@ -11,13 +11,15 @@ import {
 } from 'class-validator';
 
 export class CreateServiceDto {
-  @ApiProperty({ example: 'Haircut' })
+  @ApiProperty({ example: 'طلب صرف مواد من المستودع' })
   @IsString()
   @MinLength(2)
   @MaxLength(120)
   name: string;
 
-  @ApiProperty({ example: 'Standard haircut with wash and style.' })
+  @ApiProperty({
+    example: 'صرف واستلام مواد من المستودع المركزي حسب طلب الجهة المستفيدة.',
+  })
   @IsString()
   @MinLength(10)
   @MaxLength(1000)
