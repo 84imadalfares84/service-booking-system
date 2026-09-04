@@ -39,7 +39,7 @@ describe('Service Booking API (e2e)', () => {
     const adminLogin = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: process.env.ADMIN_EMAIL ?? 'admin@booking.local',
+        email: process.env.ADMIN_EMAIL ?? 'emad.allfares84@gmail.com',
         password: process.env.ADMIN_PASSWORD ?? 'Admin12345!',
       })
       .expect(201);

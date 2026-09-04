@@ -71,7 +71,8 @@ The API listens on **http://127.0.0.1:43147**.
 
 ### Seeded admin
 
-- Email: `admin@booking.local`
+- Name: `imad alfares`
+- Email: `emad.allfares84@gmail.com`
 - Password: `Admin12345!`
 
 Sample services for مديرية الإمداد والتوريد (`طلب صرف مواد من المستودع`, `نقل وإمداد`, `دراسة احتياج وتوريد`) are created by the seed as well.
@@ -87,7 +88,7 @@ curl -s http://127.0.0.1:43147/auth/register \
 # Login as admin
 TOKEN=$(curl -s http://127.0.0.1:43147/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"admin@booking.local","password":"Admin12345!"}' | jq -r .accessToken)
+  -d '{"email":"emad.allfares84@gmail.com","password":"Admin12345!"}' | jq -r .accessToken)
 
 # List services
 curl -s http://127.0.0.1:43147/services -H "Authorization: Bearer $TOKEN"

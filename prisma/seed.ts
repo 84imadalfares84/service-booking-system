@@ -4,20 +4,36 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-  const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@booking.local';
+  const adminName = 'imad alfares';
+  const adminEmail = (
+    process.env.ADMIN_EMAIL ?? 'emad.allfares84@gmail.com'
+  ).toLowerCase();
+  const previousAdminEmail = 'admin@booking.local';
   const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin12345!';
-  const passwordHash = await bcrypt.hash(adminPassword, 10);
 
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      name: 'System Admin',
-      email: adminEmail,
-      password: passwordHash,
-      role: 'ADMIN',
-    },
-  });
+  const existingAdmin =
+    (await prisma.user.findUnique({ where: { email: adminEmail } })) ??
+    (await prisma.user.findUnique({
+      where: { email: previousAdminEmail },
+    })) ??
+    (await prisma.user.findFirst({ where: { role: 'ADMIN' } }));
+
+  const admin = existingAdmin
+    ? await prisma.user.update({
+        where: { id: existingAdmin.id },
+        data: {
+          name: adminName,
+          email: adminEmail,
+        },
+      })
+    : await prisma.user.create({
+        data: {
+          name: adminName,
+          email: adminEmail,
+          password: await bcrypt.hash(adminPassword, 10),
+          role: 'ADMIN',
+        },
+      });
 
   const services = [
     {
